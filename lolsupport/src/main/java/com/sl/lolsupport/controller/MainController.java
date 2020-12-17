@@ -7,6 +7,7 @@ import java.util.Map;
 
 import org.apache.tomcat.util.json.JSONParser;
 import org.apache.tomcat.util.json.ParseException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.json.GsonJsonParser;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -28,12 +29,17 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.sl.lolsupport.search.GetSummonerNameAPI;
-import com.sl.lolsupport.search.MatchSearch;
+import com.sl.lolsupport.search.service.GetSummonerNameAPI;
+import com.sl.lolsupport.search.service.GetSummonerNameService;
+import com.sl.lolsupport.search.service.MatchSearch;
+import com.sl.lolsupport.service.DbService;
 
 @Controller
 public class MainController {
-	final static String apiKey = "RGAPI-3bd7da20-2025-410d-8b12-b9d631760643";
+	final static String apiKey = "RGAPI-87730f5f-eaa6-4b27-b882-55d9cc67d021";
+	
+	@Autowired
+	DbService dbservice = new DbService();
 	
 	@RequestMapping(value="/")
 	public String home(){
@@ -47,6 +53,16 @@ public class MainController {
 		return value;
 	}
 	
+	@ResponseBody
+	@RequestMapping(value="/dbTest")
+	public void searchSummoner() {
+		GetSummonerNameService NameService = new GetSummonerNameService();
+		String name = "안양 정재훈";
+		String accountId ="";
+		 accountId = NameService.test(name, apiKey, dbservice);
+		 
+		 System.out.println(accountId);
+	}
 	@ResponseBody
 	@RequestMapping(value="/APITest")
 	public String apiTest() {

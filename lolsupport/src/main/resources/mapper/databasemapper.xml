@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sl.lolsupport.mapper.DbMapper">
+    <select id="getList" resultType="com.sl.lolsupport.search.dto.SummonerDto">
+        SELECT * FROM summoner_data
+    </select>
+    
+    <insert id="insertSummoner" >
+    	INSERT INTO summoner_data
+    	(
+    		id,
+    		accountId,
+    		puuid,
+    		name,
+    		profileIconId,
+    		revisionDate,
+    		summonerLevel
+    	) 
+    	values
+    	(
+    		#{id},
+    		#{accountId},
+    		#{puuid},
+    		#{name},
+    		#{profileIconId},
+    		#{revisionDate},
+    		#{summonerLevel}
+    	)
+    </insert>
+    
+    <select id="searchSummoner" resultType="com.sl.lolsupport.search.dto.SummonerDto">
+    	SELECT * FROM summoner_data WHERE name = #{name}
+    </select>
+    
+  
+</mapper>
+ 
