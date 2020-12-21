@@ -19,9 +19,8 @@ import com.google.gson.JsonParser;
 import com.sl.lolsupport.search.dto.MatchReferenceDto;
 
 public class MatchSearch {
-	String accountID = "TsELjZ0OuDaWz5QuFZi6YKm6OXRoxpi5xquI0ufIy6of";
 	
-	public String getMatchList(String apiKey) {
+	public String getMatchList(String accountID, String apiKey) {
 		List<HttpMessageConverter<?>> converters = new ArrayList<HttpMessageConverter<?>>();
 		converters.add(new FormHttpMessageConverter());
 		converters.add(new StringHttpMessageConverter());

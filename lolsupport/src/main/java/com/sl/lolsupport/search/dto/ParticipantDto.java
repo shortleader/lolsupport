@@ -6,9 +6,9 @@ public class ParticipantDto {
 	private String participantId;
 	private String championId;
 	private List<RuneDto> runes;
-	private List<ParticipantStatsDto> stats;
+	private ParticipantStatsDto stats;
 	private String teamId;
-	private List<ParticipantTimelineDto> timeline;
+	private ParticipantTimelineDto timeline;
 	private String spell1Id;
 	private String spell2Id;
 	private String highestAchievedSeasonTier;
@@ -32,10 +32,10 @@ public class ParticipantDto {
 	public void setRunes(List<RuneDto> runes) {
 		this.runes = runes;
 	}
-	public List<ParticipantStatsDto> getStats() {
+	public ParticipantStatsDto getStats() {
 		return stats;
 	}
-	public void setStats(List<ParticipantStatsDto> stats) {
+	public void setStats(ParticipantStatsDto stats) {
 		this.stats = stats;
 	}
 	public String getTeamId() {
@@ -44,10 +44,10 @@ public class ParticipantDto {
 	public void setTeamId(String teamId) {
 		this.teamId = teamId;
 	}
-	public List<ParticipantTimelineDto> getTimeline() {
+	public ParticipantTimelineDto getTimeline() {
 		return timeline;
 	}
-	public void setTimeline(List<ParticipantTimelineDto> timeline) {
+	public void setTimeline(ParticipantTimelineDto timeline) {
 		this.timeline = timeline;
 	}
 	public String getSpell1Id() {
@@ -73,5 +73,5 @@ public class ParticipantDto {
 	}
 	public void setMasteries(List<MasteryDto> masteries) {
 		this.masteries = masteries;
-	}		
+	}
 }

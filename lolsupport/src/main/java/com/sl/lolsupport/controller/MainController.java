@@ -29,6 +29,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.sl.lolsupport.search.service.GetMatchDataService;
 import com.sl.lolsupport.search.service.GetSummonerNameAPI;
 import com.sl.lolsupport.search.service.GetSummonerNameService;
 import com.sl.lolsupport.search.service.MatchSearch;
@@ -36,14 +37,14 @@ import com.sl.lolsupport.service.DbService;
 
 @Controller
 public class MainController {
-	final static String apiKey = "RGAPI-87730f5f-eaa6-4b27-b882-55d9cc67d021";
+	final static String apiKey = "RGAPI-c4c21fa2-dde9-475f-8b2a-c8d4cc6b1879";
 	
 	@Autowired
 	DbService dbservice = new DbService();
 	
 	@RequestMapping(value="/")
 	public String home(){
-		return "test.html";
+		return "test";
 	}
 	
 	@ResponseBody
@@ -68,8 +69,11 @@ public class MainController {
 	public String apiTest() {
 		
 		//GetSummonerNameAPI getSummonerNameAPI = new GetSummonerNameAPI(apiKey);
-		MatchSearch matchSearch = new MatchSearch();
-		return matchSearch.getMatchList(apiKey); 
+		//return getSummonerNameAPI.GetSummonerAccountID();
+		//MatchSearch matchSearch = new MatchSearch();
+		//return matchSearch.getMatchList("TsELjZ0OuDaWz5QuFZi6YKm6OXRoxpi5xquI0ufIy6of", apiKey);
+		GetMatchDataService getMatchDataServcie = new GetMatchDataService();
+		return getMatchDataServcie.getMatchData("4860990250", apiKey);
 		
 		/*
 		List<HttpMessageConverter<?>> converters = new ArrayList<HttpMessageConverter<?>>();

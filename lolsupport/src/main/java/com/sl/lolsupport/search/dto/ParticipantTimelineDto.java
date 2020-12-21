@@ -1,16 +1,18 @@
 package com.sl.lolsupport.search.dto;
 
+import java.util.Map;
+
 public class ParticipantTimelineDto {
 	private String participantId;
-	private String csDiffPerMinDeltas;
-	private String damageTakenPerMinDeltas;
-	private String damageTakenDiffPerMinDeltas;
-	private String xpPerMinDeltas;
-	private String xpDiffPerMinDeltas;
-	private String lane;
-	private String creepsPerMinDeltas;
-	private String goldPerMinDeltas;
+	private Map<String, Double> csDiffPerMinDeltas;
+	private Map<String, Double> damageTakenPerMinDeltas;
 	private String role;
+	private Map<String, Double> damageTakenDiffPerMinDeltas;
+	private Map<String, Double> xpPerMinDeltas;
+	private Map<String, Double> xpDiffPerMinDeltas;
+	private String lane;
+	private Map<String, Double> creepsPerMinDeltas;
+	private Map<String, Double> goldPerMinDeltas;
 	
 	public String getParticipantId() {
 		return participantId;
@@ -18,34 +20,40 @@ public class ParticipantTimelineDto {
 	public void setParticipantId(String participantId) {
 		this.participantId = participantId;
 	}
-	public String getCsDiffPerMinDeltas() {
+	public Map<String, Double> getCsDiffPerMinDeltas() {
 		return csDiffPerMinDeltas;
 	}
-	public void setCsDiffPerMinDeltas(String csDiffPerMinDeltas) {
+	public void setCsDiffPerMinDeltas(Map<String, Double> csDiffPerMinDeltas) {
 		this.csDiffPerMinDeltas = csDiffPerMinDeltas;
 	}
-	public String getDamageTakenPerMinDeltas() {
+	public Map<String, Double> getDamageTakenPerMinDeltas() {
 		return damageTakenPerMinDeltas;
 	}
-	public void setDamageTakenPerMinDeltas(String damageTakenPerMinDeltas) {
+	public void setDamageTakenPerMinDeltas(Map<String, Double> damageTakenPerMinDeltas) {
 		this.damageTakenPerMinDeltas = damageTakenPerMinDeltas;
 	}
-	public String getDamageTakenDiffPerMinDeltas() {
+	public String getRole() {
+		return role;
+	}
+	public void setRole(String role) {
+		this.role = role;
+	}
+	public Map<String, Double> getDamageTakenDiffPerMinDeltas() {
 		return damageTakenDiffPerMinDeltas;
 	}
-	public void setDamageTakenDiffPerMinDeltas(String damageTakenDiffPerMinDeltas) {
+	public void setDamageTakenDiffPerMinDeltas(Map<String, Double> damageTakenDiffPerMinDeltas) {
 		this.damageTakenDiffPerMinDeltas = damageTakenDiffPerMinDeltas;
 	}
-	public String getXpPerMinDeltas() {
+	public Map<String, Double> getXpPerMinDeltas() {
 		return xpPerMinDeltas;
 	}
-	public void setXpPerMinDeltas(String xpPerMinDeltas) {
+	public void setXpPerMinDeltas(Map<String, Double> xpPerMinDeltas) {
 		this.xpPerMinDeltas = xpPerMinDeltas;
 	}
-	public String getXpDiffPerMinDeltas() {
+	public Map<String, Double> getXpDiffPerMinDeltas() {
 		return xpDiffPerMinDeltas;
 	}
-	public void setXpDiffPerMinDeltas(String xpDiffPerMinDeltas) {
+	public void setXpDiffPerMinDeltas(Map<String, Double> xpDiffPerMinDeltas) {
 		this.xpDiffPerMinDeltas = xpDiffPerMinDeltas;
 	}
 	public String getLane() {
@@ -54,22 +62,16 @@ public class ParticipantTimelineDto {
 	public void setLane(String lane) {
 		this.lane = lane;
 	}
-	public String getCreepsPerMinDeltas() {
+	public Map<String, Double> getCreepsPerMinDeltas() {
 		return creepsPerMinDeltas;
 	}
-	public void setCreepsPerMinDeltas(String creepsPerMinDeltas) {
+	public void setCreepsPerMinDeltas(Map<String, Double> creepsPerMinDeltas) {
 		this.creepsPerMinDeltas = creepsPerMinDeltas;
 	}
-	public String getGoldPerMinDeltas() {
+	public Map<String, Double> getGoldPerMinDeltas() {
 		return goldPerMinDeltas;
 	}
-	public void setGoldPerMinDeltas(String goldPerMinDeltas) {
+	public void setGoldPerMinDeltas(Map<String, Double> goldPerMinDeltas) {
 		this.goldPerMinDeltas = goldPerMinDeltas;
-	}
-	public String getRole() {
-		return role;
-	}
-	public void setRole(String role) {
-		this.role = role;
 	}
 }
