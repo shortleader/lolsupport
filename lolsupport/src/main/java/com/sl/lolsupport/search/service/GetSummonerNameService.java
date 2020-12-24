@@ -7,9 +7,6 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.sl.lolsupport.search.dto.SummonerDto;

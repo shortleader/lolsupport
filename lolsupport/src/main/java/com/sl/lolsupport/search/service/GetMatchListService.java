@@ -1,22 +1,14 @@
 package com.sl.lolsupport.search.service;
 
-import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
 import org.springframework.http.converter.FormHttpMessageConverter;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-import com.sl.lolsupport.search.dto.MatchReferenceDto;
 import com.sl.lolsupport.search.dto.MatchlistDto;
 
 public class GetMatchListService {
@@ -30,8 +22,7 @@ public class GetMatchListService {
 		RestTemplate restTemplate = new RestTemplate();
 		restTemplate.setMessageConverters(converters);
 		try {
-			String result = restTemplate.getForObject("https://kr.api.riotgames.com/lol/match/v4/matchlists/by-account/" + accountID + "?endIndex=" + endIndex + "&api_key=" + apiKey, String.class);
-			JsonParser jsonParser = null;			
+			String result = restTemplate.getForObject("https://kr.api.riotgames.com/lol/match/v4/matchlists/by-account/" + accountID + "?endIndex=" + endIndex + "&api_key=" + apiKey, String.class);			
 			matchlistDto = gson.fromJson(result, MatchlistDto.class);
 		} catch (Exception e) {
 			e.printStackTrace();
