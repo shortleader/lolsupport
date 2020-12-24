@@ -29,15 +29,15 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.sl.lolsupport.search.service.GetMatchDataService;
+import com.sl.lolsupport.search.service.GetMatchService;
 import com.sl.lolsupport.search.service.GetSummonerNameAPI;
 import com.sl.lolsupport.search.service.GetSummonerNameService;
-import com.sl.lolsupport.search.service.MatchSearch;
+import com.sl.lolsupport.search.service.GetMatchListService;
 import com.sl.lolsupport.service.DbService;
 
 @Controller
 public class MainController {
-	final static String apiKey = "RGAPI-c4c21fa2-dde9-475f-8b2a-c8d4cc6b1879";
+	final static String apiKey = "RGAPI-c69f0536-528b-49cc-8951-3f7e52fa53ba";
 	
 	@Autowired
 	DbService dbservice = new DbService();
@@ -70,12 +70,14 @@ public class MainController {
 		
 		//GetSummonerNameAPI getSummonerNameAPI = new GetSummonerNameAPI(apiKey);
 		//return getSummonerNameAPI.GetSummonerAccountID();
-		//MatchSearch matchSearch = new MatchSearch();
-		//return matchSearch.getMatchList("TsELjZ0OuDaWz5QuFZi6YKm6OXRoxpi5xquI0ufIy6of", apiKey);
-		GetMatchDataService getMatchDataServcie = new GetMatchDataService();
-		return getMatchDataServcie.getMatchData("4860990250", apiKey);
+		GetMatchListService matchSearch = new GetMatchListService();
+		return matchSearch.getMatchList("TsELjZ0OuDaWz5QuFZi6YKm6OXRoxpi5xquI0ufIy6of",10 ,apiKey);
+		//GetMatchService getMatchDataServcie = new GetMatchService();
+		//return getMatchDataServcie.getMatchData("4860990250", apiKey);
 		
-		/*
+		
+		
+		/* backup
 		List<HttpMessageConverter<?>> converters = new ArrayList<HttpMessageConverter<?>>();
 		converters.add(new FormHttpMessageConverter());
 		converters.add(new StringHttpMessageConverter());
