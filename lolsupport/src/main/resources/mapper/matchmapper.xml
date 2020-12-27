@@ -4,43 +4,43 @@
 	
 	<!-- select 부분 -->
 	
-	<select id="matchList" resultType="com.sl.lolsupport.search.dto.MatchDto">
-		SELECT * FROM matchdto
+	<select id="getMatchList" resultType="com.sl.lolsupport.search.dto.MatchDto">
+		SELECT * FROM matchdto where gameId = #{gameId}
 	</select>
 	
-	<select id="participantidentitydto" resultType="com.sl.lolsupport.search.dto.ParticipantIdentityDto">
-		SELECT * FROM participantidentitydto
+	<select id="getParticipantIdentityDtoList" resultType="com.sl.lolsupport.search.dto.ParticipantIdentityDto">
+		SELECT * FROM participantidentitydto where gameId = #{gameId}
 	</select>
 	
-	<select id="playerdto" resultType="com.sl.lolsupport.search.dto.PlayerDto">
-		SELECT * FROM playerdto
+	<select id="getPlayerDtoList" resultType="com.sl.lolsupport.search.dto.PlayerDto">
+		SELECT * FROM playerdto where gameId = #{gameId}
 	</select>
 	
-	<select id="teamstatsdto" resultType="com.sl.lolsupport.search.dto.TeamStatsDto">
-		SELECT * FROM teamstatsdto
+	<select id="getTeamStatsDtoList" resultType="com.sl.lolsupport.search.dto.TeamStatsDto">
+		SELECT * FROM teamstatsdto where gameId = #{gameId}
 	</select>
 	
-	<select id="teambansdto" resultType="com.sl.lolsupport.search.dto.TeamBansDto">
-		SELECT * FROM teambansdto
+	<select id="getTeamBansDtoList" resultType="com.sl.lolsupport.search.dto.TeamBansDto">
+		SELECT * FROM teambansdto where gameId = #{gameId}
 	</select>
 	
-	<select id="participantdto" resultType="com.sl.lolsupport.search.dto.participantdto">
-		SELECT * FROM participantdto
+	<select id="getParticipantDtoList" resultType="com.sl.lolsupport.search.dto.ParticipantDto">
+		SELECT * FROM participantdto where gameId = #{gameId}
 	</select>
 	
-	<select id="runedto" resultType="com.sl.lolsupport.search.dto.RuneDto">
-		SELECT * FROM runedto
+	<select id="getRuneDtoList" resultType="com.sl.lolsupport.search.dto.RuneDto">
+		SELECT * FROM runedto where gameId = #{gameId}
 	</select>
 	
-	<select id="participantstatsdto" resultType="com.sl.lolsupport.search.dto.ParticipantStatsDto">
+	<select id="getParticipantStatsDtoList" resultType="com.sl.lolsupport.search.dto.ParticipantStatsDto">
 		SELECT * FROM participantstatsdto
 	</select>
 	
-	<select id="participanttimelinedto" resultType="com.sl.lolsupport.search.dto.ParticipantTimelineDto">
+	<select id="getParticipantTimelineDtoList" resultType="com.sl.lolsupport.search.dto.ParticipantTimelineDto">
 		SELECT * FROM participanttimelinedto
 	</select>
 	
-	<select id="masterydto" resultType="com.sl.lolsupport.search.dto.MasteryDto">
+	<select id="getMasteryDtoList" resultType="com.sl.lolsupport.search.dto.MasteryDto">
 		SELECT * FROM masterydto
 	</select>
 	
@@ -216,6 +216,8 @@
 	<insert id="insertParticipantstatsdto">
 		INSERT INTO participantstatsdto	
 		(
+			gameId,
+			participantId,
 	 		item0,
 	 		item1,
 	 		totalUnitsHealed,
@@ -330,16 +332,168 @@
 		)
 		values
 		(
-			
+			#{gameId},
+			#{participantId},
+			#{item0},
+	 		#{item1},
+	 		#{totalUnitsHealed},
+	 		#{item2},
+	 		#{largestMultiKill},
+	 		#{goldEarned},
+	 		#{firstInhibitorKill},
+	 		#{physicalDamageTaken},
+	 		#{nodeNeutralizeAssist},
+	 		#{totalPlayerScore},
+	 		#{champLevel},
+	 		#{damageDealtToObjectives},
+	 		#{totalDamageTaken},
+	 		#{neutralMinionsKilled},
+	 		#{deaths},
+	 		#{tripleKills},
+	 		#{magicDamageDealtToChampions},
+	 		#{wardsKilled},
+	 		#{pentaKills},
+	 		#{damageSelfMtigated},
+	 		#{largestCriticalStrike},
+	 		#{nodeNeutralize},
+	 		#{totalTimeCrowdControlDealt},	
+	 		#{firstTowerKill},
+	 		#{magicDamageDealt},
+	 		#{totalScoreRank},
+	 		#{nodeCapture},
+	 		#{wardsPlaced},
+	 		#{totalDamageDealt},
+	 		#{timeCCingOthers},
+	 		#{magicalDamageTaken},
+	 		#{largestKillingSpree},
+	 		#{totalDamageDealtToChampions},
+	 		#{physicalDamageDealtToChampions},
+	 		#{neutralMinionsKilledTeamJungle},
+	 		#{totalMinionsKilled},
+	 		#{firstInhibitorAssist},
+	 		#{visionWardsBoughtInGame},
+	 		#{objectivePlayerScore},
+	 		#{kills},
+	 		#{firstTowerAssist},
+	 		#{combatPlayerScore},
+	 		#{inhibitorKills},
+	 		#{turretKills},
+	 		#{participantId},
+	 		#{trueDamageTaken},
+	 		#{firstBloodAssist},
+	 		#{nodeCaptureAssist},
+	 		#{assists},
+	 		#{teamObjective},
+	 		#{altarsNeutralized},
+	 		#{goldSpent},
+	 		#{damageDealtToTurrets},
+	 		#{altarsCaptured},
+	 		#{win},
+	 		#{totalHeal},
+	 		#{unrealKills},
+	 		#{visionScore},
+	 		#{physicalDamageDealt},
+	 		#{firstBloodKill},
+	 		#{longestTimeSpentLiving},
+	 		#{killingSprees},
+	 		#{sightWardsBoughtInGame},
+	 		#{trueDamageDealtToChampions},
+	 		#{neutralMinionsKilledEnemyJungle},	
+	 		#{doubleKills},
+	 		#{trueDamageDealt},
+	 		#{quadraKills},
+	 		#{item4},
+	 		#{item3},
+	 		#{item6},
+	 		#{item5},
+	 		#{playerScore0},
+	 		#{playerScore1},
+	 		#{playerScore2},
+	 		#{playerScore3},
+	 		#{playerScore4},
+	 		#{playerScore5},
+	 		#{playerScore6},
+	 		#{playerScore7},
+	 		#{playerScore8},
+	 		#{playerScore9},
+	 		#{perk0},
+	 		#{perk0Var1},
+	 		#{perk0Var2},
+	 		#{perk0Var3},
+	 		#{perk1},
+	 		#{perk1Var1},
+	 		#{perk1Var2},
+	 		#{perk1Var3},
+	 		#{perk2},
+	 		#{perk2Var1},
+	 		#{perk2Var2},
+	 		#{perk2Var3},
+	 		#{perk3},
+	 		#{perk3Var1},
+	 		#{perk3Var2},
+	 		#{perk3Var3},
+	 		#{perk4},
+	 		#{perk4Var1},
+	 		#{perk4Var2},
+	 		#{perk4Var3},
+	 		#{perk5},
+	 		#{perk5Var1},
+	 		#{perk5Var2},
+	 		#{perk5Var3},
+	 		#{perkPrimaryStyle},
+	 		#{perkSubStyle},
+	 		#{statPerk0},
+	 		#{statPerk1},
+	 		#{statPerk2}
 		)
 	</insert>
 	
 	<insert id="insertParticipanttimelinedto">
-	
+		INSERT INTO participanttimelinedto
+		(
+			gameId,
+			participantId,
+			csDiffPerMinDeltas,
+			damageTakenPerMinDeltas,
+			role,
+			damageTakenDiffPerMinDeltas,
+			xpPerMinDeltas,
+			xpDiffPerMinDeltas,
+			lane,
+			creepsPerMinDeltas,
+			goldPerMinDeltas
+		)
+		values
+		(
+			#{gameId},
+			#{participantId},
+			#{csDiffPerMinDeltas},
+			#{damageTakenPerMinDeltas},
+			#{role},
+			#{damageTakenDiffPerMinDeltas},
+			#{xpPerMinDeltas},
+			#{xpPerMinDeltas},
+			#{lane},
+			#{creepsPerMinDeltas},
+			#{goldPerMinDeltas}
+		)
 	</insert>
 	
 	<insert id="insertMasterydto">
-	
+		INSERT INTO masterydto
+		(
+			gameId,
+			participantId,
+			rank,
+			masteryId
+		)
+		values
+		(
+			#{gameId},
+			#{participantId},
+			#{rank},
+			#{masteryId}
+		)
 	</insert>
 	
 	

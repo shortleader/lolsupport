@@ -1,20 +1,30 @@
 package com.sl.lolsupport.controller;
 
+import javax.annotation.Resource;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.sl.lolsupport.search.dto.MatchDto;
 import com.sl.lolsupport.search.service.GetMatchListService;
+import com.sl.lolsupport.search.service.GetMatchService;
 import com.sl.lolsupport.search.service.GetSummonerNameService;
 import com.sl.lolsupport.service.DbService;
+import com.sl.lolsupport.service.MatchDbService;
 
 @Controller
 public class MainController {
-	final static String apiKey = "RGAPI-c69f0536-528b-49cc-8951-3f7e52fa53ba";
+	final static String apiKey = "RGAPI-4350837d-9930-434f-b970-bc30009fe76f";
 	
-	@Autowired
-	DbService dbservice = new DbService();
+	@Autowired(required=true)
+	@Resource(name="dbService")
+	DbService dbService = new DbService();
+	
+	@Autowired(required=true)
+	@Resource(name="matchDbService")
+	MatchDbService matchDbService = new MatchDbService();
 	
 	@RequestMapping(value="/")
 	public String home(){
@@ -34,18 +44,30 @@ public class MainController {
 		GetSummonerNameService NameService = new GetSummonerNameService();
 		String name = "안양 정재훈";
 		String accountId ="";
-		 accountId = NameService.test(name, apiKey, dbservice);
+		 accountId = NameService.test(name, apiKey, dbService);
 		 
 		 System.out.println(accountId);
 	}
 	@ResponseBody
 	@RequestMapping(value="/APITest")
 	public String apiTest() {
-		
+		String[] matchId;
+		MatchDto matchDto = new MatchDto();
 		//GetSummonerNameAPI getSummonerNameAPI = new GetSummonerNameAPI(apiKey);
 		//return getSummonerNameAPI.GetSummonerAccountID();
 		GetMatchListService matchSearch = new GetMatchListService();
-		return matchSearch.getMatchList("TsELjZ0OuDaWz5QuFZi6YKm6OXRoxpi5xquI0ufIy6of",10 ,apiKey);
+		GetMatchService matchService = new GetMatchService();
+		
+		 matchId = matchSearch.getMatchList("4o1xIuqfmj5SxXy2h46JmxW6-_tqE9DftIiyDPE1qCrE",10 ,apiKey).split(" ");
+		 
+		// for(int i=0;i<matchId.length;i++) {
+		//	matchDto = matchService.getMatchData(matchId[i], apiKey);
+			
+		// }
+		
+		return matchSearch.getMatchList("4o1xIuqfmj5SxXy2h46JmxW6-_tqE9DftIiyDPE1qCrE",10 ,apiKey);
+		
+		
 		//GetMatchService getMatchDataServcie = new GetMatchService();
 		//return getMatchDataServcie.getMatchData("4860990250", apiKey);
 		

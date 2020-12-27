@@ -15,7 +15,7 @@ public class GetMatchService {
 	MatchDto matchDto = new MatchDto();
 	Gson gson = new Gson();
 	
-	public String getMatchData(String gameId, String apiKey) {
+	public MatchDto getMatchData(String gameId, String apiKey) {
 		List<HttpMessageConverter<?>> converters = new ArrayList<HttpMessageConverter<?>>();
 		converters.add(new FormHttpMessageConverter());
 		converters.add(new StringHttpMessageConverter());
@@ -26,10 +26,9 @@ public class GetMatchService {
 		String result = restTemplate.getForObject("https://kr.api.riotgames.com/lol/match/v4/matches/" + gameId + "?api_key=" + apiKey, String.class);
 		try {
 			matchDto = gson.fromJson(result, MatchDto.class);
-			result = matchDto.getParticipants().get(0).getStats().getTotalDamageDealtToChampions();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return result.toString();
+		return matchDto;
 	}
 }

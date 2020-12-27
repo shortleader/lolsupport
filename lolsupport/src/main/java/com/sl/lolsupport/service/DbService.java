@@ -9,7 +9,7 @@ import com.sl.lolsupport.mapper.DbMapper;
 import com.sl.lolsupport.search.dto.SummonerDto;;
 
 @Service
-public class DbService {
+public class DbService implements DbMapper{
 
 	@Autowired
 	DbMapper dbmapper;
