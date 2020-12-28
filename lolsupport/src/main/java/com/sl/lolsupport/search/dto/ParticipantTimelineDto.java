@@ -14,6 +14,10 @@ public class ParticipantTimelineDto {
 	private Map<String, Double> creepsPerMinDeltas;
 	private Map<String, Double> goldPerMinDeltas;
 	
+	// Database 전용
+	
+	private String gameId;
+	
 	public String getParticipantId() {
 		return participantId;
 	}
@@ -73,5 +77,11 @@ public class ParticipantTimelineDto {
 	}
 	public void setGoldPerMinDeltas(Map<String, Double> goldPerMinDeltas) {
 		this.goldPerMinDeltas = goldPerMinDeltas;
+	}
+	public String getGameId() {
+		return gameId;
+	}
+	public void setGameId(String gameId) {
+		this.gameId = gameId;
 	}
 }

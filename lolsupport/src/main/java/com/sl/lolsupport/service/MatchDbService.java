@@ -2,6 +2,7 @@ package com.sl.lolsupport.service;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -108,49 +109,49 @@ public class MatchDbService implements MatchMapper{
 		matchMapper.insertMatchList(matchDto);
 	}
 
-	public void insertParticipantIdentityDtoList(MatchDto matchDto) throws Exception {
+	public void insertParticipantIdentityDtoList(ParticipantIdentityDto participantIdentityDto) throws Exception {
 		// TODO Auto-generated method stub
-		matchMapper.insertParticipantIdentityDtoList(matchDto);
+		matchMapper.insertParticipantIdentityDtoList(participantIdentityDto);
 	}
 
-	public void insertPlayerDto(MatchDto matchDto) throws Exception {
+	public void insertPlayerDto(PlayerDto playerDto) throws Exception {
 		// TODO Auto-generated method stub
-		matchMapper.insertPlayerDto(matchDto);
+		matchMapper.insertPlayerDto(playerDto);
 	}
 
-	public void insertTeamStatsDto(MatchDto matchDto) throws Exception {
+	public void insertTeamStatsDto(TeamStatsDto teamStatsDto) throws Exception {
 		// TODO Auto-generated method stub
-		matchMapper.insertTeamStatsDto(matchDto);
+		matchMapper.insertTeamStatsDto(teamStatsDto);
 	}
 
-	public void insertTeamBansDto(MatchDto matchDto) throws Exception {
+	public void insertTeamBansDto(TeamBansDto teamBansDto) throws Exception {
 		// TODO Auto-generated method stub
-		matchMapper.insertTeamBansDto(matchDto);
+		matchMapper.insertTeamBansDto(teamBansDto);
 	}
 
-	public void insertParticipantDto(MatchDto matchDto) throws Exception {
+	public void insertParticipantDto(ParticipantDto participantDto) throws Exception {
 		// TODO Auto-generated method stub
-		matchMapper.insertParticipantDto(matchDto);
+		matchMapper.insertParticipantDto(participantDto);
 	}
 
-	public void insertRuneDto(MatchDto matchDto) throws Exception {
+	public void insertRuneDto(RuneDto runeDto) throws Exception {
 		// TODO Auto-generated method stub
-		matchMapper.insertRuneDto(matchDto);
+		matchMapper.insertRuneDto(runeDto);
 	}
 
-	public void insertParticipantStatsDto(MatchDto matchDto) throws Exception {
+	public void insertParticipantStatsDto(ParticipantStatsDto participantStatsDto) throws Exception {
 		// TODO Auto-generated method stub
-		matchMapper.insertParticipantStatsDto(matchDto);
+		matchMapper.insertParticipantStatsDto(participantStatsDto);
 	}
 
-	public void insertParticipantTimelineDto(MatchDto matchDto) throws Exception {
+	public void insertParticipantTimelineDto(ParticipantTimelineDto participantTimelineDto) throws Exception {
 		// TODO Auto-generated method stub
-		matchMapper.insertParticipantTimelineDto(matchDto);
+		matchMapper.insertParticipantTimelineDto(participantTimelineDto);
 	}
 
-	public void insertMasteryDto(MatchDto matchDto) throws Exception {
+	public void insertMasteryDto(MasteryDto masteryDto) throws Exception {
 		// TODO Auto-generated method stub
-		matchMapper.insertMasteryDto(matchDto);
+		matchMapper.insertMasteryDto(masteryDto);
 	}
 
 	

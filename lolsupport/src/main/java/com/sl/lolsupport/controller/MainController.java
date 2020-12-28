@@ -1,7 +1,11 @@
 package com.sl.lolsupport.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.annotation.Resource;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -50,20 +54,71 @@ public class MainController {
 	}
 	@ResponseBody
 	@RequestMapping(value="/APITest")
-	public String apiTest() {
+	public String apiTest() throws Exception {
 		String[] matchId;
 		MatchDto matchDto = new MatchDto();
+		List<MatchDto> matchDto2 = new ArrayList<MatchDto>();
 		//GetSummonerNameAPI getSummonerNameAPI = new GetSummonerNameAPI(apiKey);
 		//return getSummonerNameAPI.GetSummonerAccountID();
 		GetMatchListService matchSearch = new GetMatchListService();
 		GetMatchService matchService = new GetMatchService();
 		
-		 matchId = matchSearch.getMatchList("4o1xIuqfmj5SxXy2h46JmxW6-_tqE9DftIiyDPE1qCrE",10 ,apiKey).split(" ");
-		 
-		// for(int i=0;i<matchId.length;i++) {
-		//	matchDto = matchService.getMatchData(matchId[i], apiKey);
+		 matchId = matchSearch.getMatchList("fcMVfAmn911RWWmtBb0KH6GjygXwk9L_WajPh5KbTYbo",10 ,apiKey).split("\n");
+		 for(int i=0;i<matchId.length;i++) {
+			matchDto = matchService.getMatchData(matchId[i], apiKey);
 			
-		// }
+			//matchDto2 = matchDbService.getMatchList(matchDto);
+			matchDbService.insertMatchList(matchDto);
+			for(int j=0;j<matchDto.getParticipantIdentities().size();j++) {
+				matchDto.getParticipantIdentities().get(j).setGameId(matchDto.getGameId());
+				matchDto.getParticipantIdentities().get(j).getPlayer().setGameId(matchDto.getGameId());
+				matchDto.getParticipantIdentities().get(j).getPlayer().setParticipantId(matchDto.getParticipantIdentities().get(j).getParticipantId());
+				
+				matchDbService.insertParticipantIdentityDtoList(matchDto.getParticipantIdentities().get(j));
+				matchDbService.insertPlayerDto(matchDto.getParticipantIdentities().get(j).getPlayer());
+				
+			}
+			
+			
+			for(int j=0;j<matchDto.getTeams().size();j++) {
+				matchDto.getTeams().get(j).setGameId(matchDto.getGameId());
+				matchDbService.insertTeamStatsDto(matchDto.getTeams().get(j));
+				
+				for(int k=0;k<matchDto.getTeams().get(j).getBans().size();k++) {
+					matchDto.getTeams().get(j).getBans().get(k).setGameId(matchDto.getGameId());
+					matchDto.getTeams().get(j).getBans().get(k).setTeamId(matchDto.getTeams().get(j).getTeamId());
+					matchDbService.insertTeamBansDto(matchDto.getTeams().get(j).getBans().get(k));
+				}
+			}
+			
+			for(int j=0;j<matchDto.getParticipants().size();j++) {
+				matchDto.getParticipants().get(j).setGameId(matchDto.getGameId());
+				matchDbService.insertParticipantDto(matchDto.getParticipants().get(j));
+				
+				// rune 부분
+				/*for(int k=0;k<matchDto.getParticipants().get(j).getRunes().size();k++) {
+					matchDto.getParticipants().get(j).getRunes().get(k).setGameId(matchDto.getGameId());
+					matchDto.getParticipants().get(j).getRunes().get(k).setParticipantId(matchDto.getParticipants().get(j).getParticipantId());
+					matchDbService.insertRuneDto(matchDto.getParticipants().get(j).getRunes().get(k));
+				}*/
+				
+				matchDto.getParticipants().get(j).getStats().setGameId(matchDto.getGameId());
+				matchDbService.insertParticipantStatsDto(matchDto.getParticipants().get(j).getStats());
+				
+				// Timeline 부분 -- 수정 필요
+				//matchDto.getParticipants().get(j).getTimeline().setGameId(matchDto.getGameId());
+				//matchDbService.insertParticipantTimelineDto(matchDto.getParticipants().get(j).getTimeline());
+				
+				// Mastery 부분
+				/*for(int k=0;k<matchDto.getParticipants().get(j).getMasteries().size();k++) {
+					matchDto.getParticipants().get(j).getMasteries().get(k).setGameId(matchDto.getGameId());
+					matchDto.getParticipants().get(j).getMasteries().get(k).setParticipantId(matchDto.getParticipants().get(j).getParticipantId());
+					matchDbService.insertMasteryDto(matchDto.getParticipants().get(j).getMasteries().get(k));
+				}*/
+			}
+			
+			
+		 }
 		
 		return matchSearch.getMatchList("4o1xIuqfmj5SxXy2h46JmxW6-_tqE9DftIiyDPE1qCrE",10 ,apiKey);
 		

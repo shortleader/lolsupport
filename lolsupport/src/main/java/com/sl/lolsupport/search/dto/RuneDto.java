@@ -4,6 +4,10 @@ public class RuneDto {
 	private String runeId;
 	private String rank;
 	
+	// Database 전용
+	private String gameId;
+	private String participantId;
+	
 	public String getRuneId() {
 		return runeId;
 	}
@@ -16,4 +20,17 @@ public class RuneDto {
 	public void setRank(String rank) {
 		this.rank = rank;
 	}
+	public String getGameId() {
+		return gameId;
+	}
+	public void setGameId(String gameId) {
+		this.gameId = gameId;
+	}
+	public String getParticipantId() {
+		return participantId;
+	}
+	public void setParticipantId(String participantId) {
+		this.participantId = participantId;
+	}
+	
 }

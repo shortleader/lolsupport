@@ -10,6 +10,11 @@ public class PlayerDto {
 	private String summonerId;
 	private String platformId;
 	
+	// Database 전용
+	
+	private String gameId;
+	private String participantId;
+	
 	public String getProfileIcon() {
 		return profileIcon;
 	}
@@ -57,5 +62,17 @@ public class PlayerDto {
 	}
 	public void setPlatformId(String platformId) {
 		this.platformId = platformId;
+	}
+	public String getGameId() {
+		return gameId;
+	}
+	public void setGameId(String gameId) {
+		this.gameId = gameId;
+	}
+	public String getParticipantId() {
+		return participantId;
+	}
+	public void setParticipantId(String participantId) {
+		this.participantId = participantId;
 	}
 }

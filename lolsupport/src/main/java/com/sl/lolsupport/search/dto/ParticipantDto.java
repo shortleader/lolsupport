@@ -14,6 +14,10 @@ public class ParticipantDto {
 	private String highestAchievedSeasonTier;
 	private List<MasteryDto> masteries;
 	
+	// Database 전용
+	
+	private String gameId;
+	
 	public String getParticipantId() {
 		return participantId;
 	}
@@ -73,5 +77,11 @@ public class ParticipantDto {
 	}
 	public void setMasteries(List<MasteryDto> masteries) {
 		this.masteries = masteries;
+	}
+	public String getGameId() {
+		return gameId;
+	}
+	public void setGameId(String gameId) {
+		this.gameId = gameId;
 	}
 }

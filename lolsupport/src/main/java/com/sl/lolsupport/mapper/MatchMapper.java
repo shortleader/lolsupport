@@ -2,6 +2,8 @@ package com.sl.lolsupport.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.sl.lolsupport.search.dto.MasteryDto;
 import com.sl.lolsupport.search.dto.MatchDto;
 import com.sl.lolsupport.search.dto.ParticipantDto;
@@ -37,21 +39,21 @@ public interface MatchMapper {
 	
 	public void insertMatchList(MatchDto matchDto) throws Exception;
 	
-	public void insertParticipantIdentityDtoList(MatchDto matchDto) throws Exception;
+	public void insertParticipantIdentityDtoList(ParticipantIdentityDto participantIdentityDto) throws Exception;
 	
-	public void insertPlayerDto(MatchDto matchDto) throws Exception;
+	public void insertPlayerDto(PlayerDto playerDto) throws Exception;
 	
-	public void insertTeamStatsDto(MatchDto matchDto) throws Exception;
+	public void insertTeamStatsDto(TeamStatsDto teamStatsDto) throws Exception;
 	
-	public void insertTeamBansDto(MatchDto matchDto) throws Exception;
+	public void insertTeamBansDto(TeamBansDto teamBansDto) throws Exception;
 	
-	public void insertParticipantDto(MatchDto matchDto) throws Exception;
+	public void insertParticipantDto(ParticipantDto participantDto) throws Exception;
 	
-	public void insertRuneDto(MatchDto matchDto) throws Exception;
+	public void insertRuneDto(RuneDto runeDto) throws Exception;
 	
-	public void insertParticipantStatsDto(MatchDto matchDto) throws Exception;
+	public void insertParticipantStatsDto(ParticipantStatsDto participantStatsDto) throws Exception;
 	
-	public void insertParticipantTimelineDto(MatchDto matchDto) throws Exception;
+	public void insertParticipantTimelineDto(ParticipantTimelineDto participantTimelineDto) throws Exception;
 	
-	public void insertMasteryDto(MatchDto matchDto) throws Exception;
+	public void insertMasteryDto(MasteryDto masteryDto) throws Exception;
 }

@@ -4,6 +4,10 @@ public class TeamBansDto {
 	private String championId;
 	private String pickTurn;
 	
+	// Database 전용
+	private String gameId;
+	private String teamId;
+	
 	public String getChampionId() {
 		return championId;
 	}
@@ -15,5 +19,17 @@ public class TeamBansDto {
 	}
 	public void setPickTurn(String pickTurn) {
 		this.pickTurn = pickTurn;
+	}
+	public String getGameId() {
+		return gameId;
+	}
+	public void setGameId(String gameId) {
+		this.gameId = gameId;
+	}
+	public String getTeamId() {
+		return teamId;
+	}
+	public void setTeamId(String teamId) {
+		this.teamId = teamId;
 	}
 }

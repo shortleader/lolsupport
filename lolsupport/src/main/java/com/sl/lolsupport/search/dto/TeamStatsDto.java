@@ -19,6 +19,10 @@ public class TeamStatsDto {
 	private String teamId;
 	private String win;
 	
+	// Database 전용
+	
+	private String gameId;
+	
 	public String getTowerKills() {
 		return towerKills;
 	}
@@ -108,5 +112,11 @@ public class TeamStatsDto {
 	}
 	public void setWin(String win) {
 		this.win = win;
+	}
+	public String getGameId() {
+		return gameId;
+	}
+	public void setGameId(String gameId) {
+		this.gameId = gameId;
 	}	
 }

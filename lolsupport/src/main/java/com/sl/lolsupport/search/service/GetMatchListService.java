@@ -29,7 +29,7 @@ public class GetMatchListService {
 		}
 		String returnString = "";
 		for (int i=0; i<endIndex; i++) {
-			returnString += matchlistDto.getMatches().get(0).getGameId() + "\n";
+			returnString += matchlistDto.getMatches().get(i).getGameId() + "\n";
 		}
 		return returnString;
 	}

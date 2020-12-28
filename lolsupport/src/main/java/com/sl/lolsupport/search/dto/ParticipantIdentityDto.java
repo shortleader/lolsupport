@@ -4,6 +4,9 @@ public class ParticipantIdentityDto {
 	private String participantId;
 	private PlayerDto player;
 	
+	// Database 전용 
+	private String gameId;
+	
 	public String getParticipantId() {
 		return participantId;
 	}
@@ -15,5 +18,11 @@ public class ParticipantIdentityDto {
 	}
 	public void setPlayer(PlayerDto player) {
 		this.player = player;
+	}
+	public String getGameId() {
+		return gameId;
+	}
+	public void setGameId(String gameId) {
+		this.gameId = gameId;
 	}
 }

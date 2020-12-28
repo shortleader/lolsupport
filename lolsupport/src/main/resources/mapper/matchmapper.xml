@@ -75,7 +75,7 @@
 		)
 	</insert>
 	
-	<insert id="insertParticipantidentitydto">
+	<insert id="insertParticipantIdentityDtoList">
 		INSERT INTO participantidentitydto
 		(
 			gameId,
@@ -88,7 +88,7 @@
 		)
 	</insert>
 	
-	<insert id="insertPlayerdto">
+	<insert id="insertPlayerDto">
 		INSERT INTO playerdto
 		(
 			gameId,
@@ -117,16 +117,16 @@
 		)
 	</insert>
 	
-	<insert id="insertTeamstatsdto">
+	<insert id="insertTeamStatsDto">
 		INSERT INTO teamstatsdto
 		(
 			gameId,
 			towerKills,
-			riftheraldKills,
+			riftHeraldKills,
 			firstBlood,
 			inhibitorKills,
 			firstBaron,
-			firstDragon
+			firstDragon,
 			dominionVictoryScore,
 			dragonKills,
 			firstInhibitor,
@@ -140,7 +140,7 @@
 		(
 			#{gameId},
 			#{towerKills},
-			#{riftheraldKills},
+			#{riftHeraldKills},
 			#{firstBlood},
 			#{inhibitorKills},
 			#{firstBaron},
@@ -150,13 +150,13 @@
 			#{firstInhibitor},
 			#{firstTower},
 			#{vilemawKills},
-			#firstRiftHerald{},
+			#{firstRiftHerald},
 			#{teamId},
 			#{win}
 		)
 	</insert>
 	
-	<insert id="insertTeambansdto">
+	<insert id="insertTeamBansDto">
 		INSERT INTO teambansdto
 		(
 			gameId,
@@ -173,7 +173,7 @@
 		)
 	</insert>
 	
-	<insert id="insertParticipantdto">
+	<insert id="insertParticipantDto">
 		INSERT INTO participantdto
 		(
 			gameId,
@@ -196,7 +196,7 @@
 		)
 	</insert>
 	
-	<insert id="insertRunedto">
+	<insert id="insertRuneDto">
 		INSERT INTO runedto
 		(
 			gameId,
@@ -213,11 +213,10 @@
 		)
 	</insert>
 	
-	<insert id="insertParticipantstatsdto">
+	<insert id="insertParticipantStatsDto">
 		INSERT INTO participantstatsdto	
 		(
 			gameId,
-			participantId,
 	 		item0,
 	 		item1,
 	 		totalUnitsHealed,
@@ -328,12 +327,11 @@
 	 		perkSubStyle,
 	 		statPerk0,
 	 		statPerk1,
-	 		statPerk2,
+	 		statPerk2
 		)
 		values
 		(
 			#{gameId},
-			#{participantId},
 			#{item0},
 	 		#{item1},
 	 		#{totalUnitsHealed},
@@ -448,12 +446,12 @@
 		)
 	</insert>
 	
-	<insert id="insertParticipanttimelinedto">
+	<insert id="insertParticipantTimelineDto">
 		INSERT INTO participanttimelinedto
 		(
 			gameId,
 			participantId,
-			csDiffPerMinDeltas,
+			csDiffPerMinDeltas
 			damageTakenPerMinDeltas,
 			role,
 			damageTakenDiffPerMinDeltas,
@@ -467,19 +465,19 @@
 		(
 			#{gameId},
 			#{participantId},
-			#{csDiffPerMinDeltas},
+			#{csDiffPerMinDeltas}
 			#{damageTakenPerMinDeltas},
 			#{role},
 			#{damageTakenDiffPerMinDeltas},
 			#{xpPerMinDeltas},
-			#{xpPerMinDeltas},
+			#{xpDiffPerMinDeltas},
 			#{lane},
 			#{creepsPerMinDeltas},
 			#{goldPerMinDeltas}
 		)
 	</insert>
 	
-	<insert id="insertMasterydto">
+	<insert id="insertMasteryDto">
 		INSERT INTO masterydto
 		(
 			gameId,

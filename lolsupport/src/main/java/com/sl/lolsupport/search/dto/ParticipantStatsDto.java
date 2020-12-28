@@ -112,6 +112,12 @@ public class ParticipantStatsDto {
 	private String statPerk0;
 	private String statPerk1;
 	private String statPerk2;
+	
+	// Database 전용
+	
+	private String gameId;
+	
+	
 	public String getItem0() {
 		return item0;
 	}
@@ -777,6 +783,12 @@ public class ParticipantStatsDto {
 	}
 	public void setStatPerk2(String statPerk2) {
 		this.statPerk2 = statPerk2;
+	}
+	public String getGameId() {
+		return gameId;
+	}
+	public void setGameId(String gameId) {
+		this.gameId = gameId;
 	}
 	
 }
