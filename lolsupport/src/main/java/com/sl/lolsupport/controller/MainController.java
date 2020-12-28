@@ -1,11 +1,10 @@
 package com.sl.lolsupport.controller;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -57,7 +56,6 @@ public class MainController {
 	public String apiTest() throws Exception {
 		String[] matchId;
 		MatchDto matchDto = new MatchDto();
-		List<MatchDto> matchDto2 = new ArrayList<MatchDto>();
 		//GetSummonerNameAPI getSummonerNameAPI = new GetSummonerNameAPI(apiKey);
 		//return getSummonerNameAPI.GetSummonerAccountID();
 		GetMatchListService matchSearch = new GetMatchListService();
@@ -106,8 +104,56 @@ public class MainController {
 				matchDbService.insertParticipantStatsDto(matchDto.getParticipants().get(j).getStats());
 				
 				// Timeline 부분 -- 수정 필요
-				//matchDto.getParticipants().get(j).getTimeline().setGameId(matchDto.getGameId());
-				//matchDbService.insertParticipantTimelineDto(matchDto.getParticipants().get(j).getTimeline());
+				Map<String, String> participantTimeLineDto = new HashMap<String, String>();
+				participantTimeLineDto.put("participantId", matchDto.getParticipants().get(j).getParticipantId());
+				
+				String temp = "";
+				for (String key : matchDto.getParticipants().get(j).getTimeline().getCsDiffPerMinDeltas().keySet()) {
+					temp = temp + key + " : " + matchDto.getParticipants().get(j).getTimeline().getCsDiffPerMinDeltas().get(key)+ " ";
+				}
+				participantTimeLineDto.put("csDiffPerMinDeltas", temp);
+				
+				temp = "";
+				for (String key : matchDto.getParticipants().get(j).getTimeline().getDamageTakenPerMinDeltas().keySet()) {
+					temp = temp + key + " : " + matchDto.getParticipants().get(j).getTimeline().getDamageTakenPerMinDeltas().get(key)+ " ";
+				}
+				participantTimeLineDto.put("damageTakenPerMinDeltas", temp);
+				participantTimeLineDto.put("role", matchDto.getParticipants().get(j).getTimeline().getRole());
+				
+				temp = "";
+				for (String key : matchDto.getParticipants().get(j).getTimeline().getDamageTakenDiffPerMinDeltas().keySet()) {
+					temp = temp + key + " : " + matchDto.getParticipants().get(j).getTimeline().getDamageTakenDiffPerMinDeltas().get(key)+ " ";
+				}				
+				participantTimeLineDto.put("damageTakenDiffPerMinDeltas", "");
+				
+				temp = "";
+				for (String key : matchDto.getParticipants().get(j).getTimeline().getXpPerMinDeltas().keySet()) {
+					temp = temp + key + " : " + matchDto.getParticipants().get(j).getTimeline().getXpPerMinDeltas().get(key)+ " ";
+				}				
+				participantTimeLineDto.put("xpPerMinDeltas", "");
+				
+				temp = "";
+				for (String key : matchDto.getParticipants().get(j).getTimeline().getXpDiffPerMinDeltas().keySet()) {
+					temp = temp + key + " : " + matchDto.getParticipants().get(j).getTimeline().getXpDiffPerMinDeltas().get(key)+ " ";
+				}				
+				participantTimeLineDto.put("xpDiffPerMinDeltas", "");
+				participantTimeLineDto.put("lane", matchDto.getParticipants().get(j).getTimeline().getLane());
+				
+				temp = "";
+				for (String key : matchDto.getParticipants().get(j).getTimeline().getCreepsPerMinDeltas().keySet()) {
+					temp = temp + key + " : " + matchDto.getParticipants().get(j).getTimeline().getCreepsPerMinDeltas().get(key)+ " ";
+				}				
+				participantTimeLineDto.put("creepsPerMinDeltas", "");
+				
+				temp = "";
+				for (String key : matchDto.getParticipants().get(j).getTimeline().getGoldPerMinDeltas().keySet()) {
+					temp = temp + key + " : " + matchDto.getParticipants().get(j).getTimeline().getGoldPerMinDeltas().get(key)+ " ";
+				}				
+				participantTimeLineDto.put("goldPerMinDeltas", "");
+				participantTimeLineDto.put("gameId", matchDto.getGameId());
+				matchDto.getParticipants().get(j).getTimeline().setGameId(matchDto.getGameId());
+				
+				matchDbService.insertParticipantTimelineDto(participantTimeLineDto);
 				
 				// Mastery 부분
 				/*for(int k=0;k<matchDto.getParticipants().get(j).getMasteries().size();k++) {

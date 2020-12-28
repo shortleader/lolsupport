@@ -15,7 +15,6 @@ public class ParticipantTimelineDto {
 	private Map<String, Double> goldPerMinDeltas;
 	
 	// Database 전용
-	
 	private String gameId;
 	
 	public String getParticipantId() {

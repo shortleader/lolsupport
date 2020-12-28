@@ -1,8 +1,7 @@
 package com.sl.lolsupport.mapper;
 
 import java.util.List;
-
-import org.apache.ibatis.annotations.Param;
+import java.util.Map;
 
 import com.sl.lolsupport.search.dto.MasteryDto;
 import com.sl.lolsupport.search.dto.MatchDto;
@@ -53,7 +52,7 @@ public interface MatchMapper {
 	
 	public void insertParticipantStatsDto(ParticipantStatsDto participantStatsDto) throws Exception;
 	
-	public void insertParticipantTimelineDto(ParticipantTimelineDto participantTimelineDto) throws Exception;
+	public void insertParticipantTimelineDto(Map<String, String> participantTimelineDto) throws Exception;
 	
 	public void insertMasteryDto(MasteryDto masteryDto) throws Exception;
 }

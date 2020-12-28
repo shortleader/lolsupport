@@ -446,7 +446,7 @@
 		)
 	</insert>
 	
-	<insert id="insertParticipantTimelineDto">
+	<insert id="insertParticipantTimelineDto" parameterType="hashMap">
 		INSERT INTO participanttimelinedto
 		(
 			gameId,
