@@ -451,7 +451,7 @@
 		(
 			gameId,
 			participantId,
-			csDiffPerMinDeltas
+			csDiffPerMinDeltas,
 			damageTakenPerMinDeltas,
 			role,
 			damageTakenDiffPerMinDeltas,
@@ -465,7 +465,7 @@
 		(
 			#{gameId},
 			#{participantId},
-			#{csDiffPerMinDeltas}
+			#{csDiffPerMinDeltas},
 			#{damageTakenPerMinDeltas},
 			#{role},
 			#{damageTakenDiffPerMinDeltas},

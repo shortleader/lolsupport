@@ -1,8 +1,5 @@
 package com.sl.lolsupport.controller;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import javax.annotation.Resource;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +16,7 @@ import com.sl.lolsupport.service.MatchDbService;
 
 @Controller
 public class MainController {
-	final static String apiKey = "RGAPI-4350837d-9930-434f-b970-bc30009fe76f";
+	final static String apiKey = "RGAPI-66bab6ec-72c5-41a1-aa9b-39da59ebbb51";
 	
 	@Autowired(required=true)
 	@Resource(name="dbService")
@@ -103,13 +100,14 @@ public class MainController {
 				matchDto.getParticipants().get(j).getStats().setGameId(matchDto.getGameId());
 				matchDbService.insertParticipantStatsDto(matchDto.getParticipants().get(j).getStats());
 				
-				// Timeline 부분 -- 수정 필요
-				Map<String, String> participantTimeLineDto = new HashMap<String, String>();
+				// Timeline 부분 -- 폐기
+				/*Map<String, String> participantTimeLineDto = new HashMap<String, String>();
 				participantTimeLineDto.put("participantId", matchDto.getParticipants().get(j).getParticipantId());
 				
 				String temp = "";
 				for (String key : matchDto.getParticipants().get(j).getTimeline().getCsDiffPerMinDeltas().keySet()) {
 					temp = temp + key + " : " + matchDto.getParticipants().get(j).getTimeline().getCsDiffPerMinDeltas().get(key)+ " ";
+					System.out.println(key + " : " + matchDto.getParticipants().get(j).getTimeline().getCsDiffPerMinDeltas().get(key)+ " ");
 				}
 				participantTimeLineDto.put("csDiffPerMinDeltas", temp);
 				
@@ -153,7 +151,7 @@ public class MainController {
 				participantTimeLineDto.put("gameId", matchDto.getGameId());
 				matchDto.getParticipants().get(j).getTimeline().setGameId(matchDto.getGameId());
 				
-				matchDbService.insertParticipantTimelineDto(participantTimeLineDto);
+				matchDbService.insertParticipantTimelineDto(participantTimeLineDto);*/
 				
 				// Mastery 부분
 				/*for(int k=0;k<matchDto.getParticipants().get(j).getMasteries().size();k++) {

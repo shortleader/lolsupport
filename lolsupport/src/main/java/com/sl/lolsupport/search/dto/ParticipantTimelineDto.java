@@ -1,18 +1,19 @@
 package com.sl.lolsupport.search.dto;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public class ParticipantTimelineDto {
 	private String participantId;
-	private Map<String, Double> csDiffPerMinDeltas;
-	private Map<String, Double> damageTakenPerMinDeltas;
+	private Map<String, Double> csDiffPerMinDeltas = new HashMap<String, Double>();
+	private Map<String, Double> damageTakenPerMinDeltas = new HashMap<String, Double>();
 	private String role;
-	private Map<String, Double> damageTakenDiffPerMinDeltas;
-	private Map<String, Double> xpPerMinDeltas;
-	private Map<String, Double> xpDiffPerMinDeltas;
+	private Map<String, Double> damageTakenDiffPerMinDeltas = new HashMap<String, Double>();
+	private Map<String, Double> xpPerMinDeltas = new HashMap<String, Double>();
+	private Map<String, Double> xpDiffPerMinDeltas = new HashMap<String, Double>();
 	private String lane;
-	private Map<String, Double> creepsPerMinDeltas;
-	private Map<String, Double> goldPerMinDeltas;
+	private Map<String, Double> creepsPerMinDeltas = new HashMap<String, Double>();
+	private Map<String, Double> goldPerMinDeltas = new HashMap<String, Double>();
 	
 	// Database 전용
 	private String gameId;
