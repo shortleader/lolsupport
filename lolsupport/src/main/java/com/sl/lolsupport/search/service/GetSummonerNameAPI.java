@@ -15,8 +15,7 @@ public class GetSummonerNameAPI {
 
 	SummonerDto summonerVO = new SummonerDto();
 	
-	public GetSummonerNameAPI(String apiKey) {
-		String summonerName = "로지컬";
+	public GetSummonerNameAPI(String summonerName, String apiKey) {
 		
 		List<HttpMessageConverter<?>> converters = new ArrayList<HttpMessageConverter<?>>();
 		converters.add(new FormHttpMessageConverter());
@@ -31,7 +30,7 @@ public class GetSummonerNameAPI {
 		summonerVO = gson.fromJson(result, SummonerDto.class);
 	}
 	
-	public String GetSummonerAccountID() {
-		return summonerVO.getAccountId();
+	public SummonerDto GetSummonerAccountID() {
+		return summonerVO;
 	}
 }

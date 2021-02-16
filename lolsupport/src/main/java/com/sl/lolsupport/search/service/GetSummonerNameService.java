@@ -17,13 +17,10 @@ import com.sl.lolsupport.service.DbService;
 public class GetSummonerNameService {
 
 	
-	@SuppressWarnings("deprecation")
-	public String test(String summonerName, String api_key, DbService dbService) {
+	public String test(String summonerName, String apiKey, DbService dbService) {
 		SummonerDto summonerData = new SummonerDto();		
 		String summonerAccountId = "";
 		
-		
-		//System.out.println(summonerName);
 		BufferedReader in = null;
 		
 		try {
@@ -42,7 +39,7 @@ public class GetSummonerNameService {
 				
 				summonerName = summonerName.replace(" ","");
 				
-				URL obj = new URL("https://kr.api.riotgames.com/lol/summoner/v4/summoners/by-name/"+summonerName+"?api_key="+api_key);//호출할 url
+				URL obj = new URL("https://kr.api.riotgames.com/lol/summoner/v4/summoners/by-name/"+summonerName+"?api_key="+apiKey);//호출할 url
 				HttpURLConnection con = (HttpURLConnection)obj.openConnection();
 				
 				con.setRequestMethod("GET");

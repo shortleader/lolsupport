@@ -33,11 +33,11 @@
 	</select>
 	
 	<select id="getParticipantStatsDtoList" resultType="com.sl.lolsupport.search.dto.ParticipantStatsDto">
-		SELECT * FROM participantstatsdto
+		SELECT * FROM participantstatsdto where gameId = #{gameId}
 	</select>
 	
 	<select id="getParticipantTimelineDtoList" resultType="com.sl.lolsupport.search.dto.ParticipantTimelineDto">
-		SELECT * FROM participanttimelinedto
+		SELECT * FROM participanttimelinedto where gameId = #{gameId}
 	</select>
 	
 	<select id="getMasteryDtoList" resultType="com.sl.lolsupport.search.dto.MasteryDto">

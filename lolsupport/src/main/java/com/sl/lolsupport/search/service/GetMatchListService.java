@@ -15,22 +15,18 @@ public class GetMatchListService {
 	MatchlistDto matchlistDto;
 	Gson gson = new Gson();
 	
-	public String getMatchList(String accountID, int endIndex, String apiKey) {
+	public MatchlistDto getMatchList(String accountID, int beginIndex, int endIndex, String apiKey) {
 		List<HttpMessageConverter<?>> converters = new ArrayList<HttpMessageConverter<?>>();
 		converters.add(new FormHttpMessageConverter());
 		converters.add(new StringHttpMessageConverter());
 		RestTemplate restTemplate = new RestTemplate();
 		restTemplate.setMessageConverters(converters);
 		try {
-			String result = restTemplate.getForObject("https://kr.api.riotgames.com/lol/match/v4/matchlists/by-account/" + accountID + "?endIndex=" + endIndex + "&api_key=" + apiKey, String.class);			
+			String result = restTemplate.getForObject("https://kr.api.riotgames.com/lol/match/v4/matchlists/by-account/" + accountID + "?beginIndex=" + beginIndex + "&endIndex=" + endIndex + "&api_key=" + apiKey, String.class);			
 			matchlistDto = gson.fromJson(result, MatchlistDto.class);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		String returnString = "";
-		for (int i=0; i<endIndex; i++) {
-			returnString += matchlistDto.getMatches().get(i).getGameId() + "\n";
-		}
-		return returnString;
+		return matchlistDto;
 	}
 }
