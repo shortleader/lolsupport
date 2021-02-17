@@ -55,7 +55,9 @@ public class MainController {
 		Gson gson = new Gson();
 		JsonObject jsonObject = new JsonObject();
 		GetSummonerNameService NameService = new GetSummonerNameService();
-		String name = "안양 정재훈";
+		String name = "";
+		
+		name = request.getParameter("summonerName"); 
 		
 		String accountId = "";
 		accountId = NameService.test(name, apiKey, dbService);
