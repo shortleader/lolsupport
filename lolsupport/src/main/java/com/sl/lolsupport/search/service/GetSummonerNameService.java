@@ -37,7 +37,7 @@ public class GetSummonerNameService {
 				
 			} else {
 				
-				summonerName = summonerName.replace(" ","");
+				summonerName = summonerName.replaceAll(" ","");
 				
 				URL obj = new URL("https://kr.api.riotgames.com/lol/summoner/v4/summoners/by-name/"+summonerName+"?api_key="+apiKey);//호출할 url
 				HttpURLConnection con = (HttpURLConnection)obj.openConnection();

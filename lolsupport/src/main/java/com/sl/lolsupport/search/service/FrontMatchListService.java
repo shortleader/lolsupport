@@ -69,7 +69,7 @@ public class FrontMatchListService {
 				}
 			}
 			// 킬관여율
-			int participation = calcParticipation(Integer.parseInt(matchDto.getParticipants().get(participantIndex).getStats().getKills()),
+			float participation = calcParticipation(Integer.parseInt(matchDto.getParticipants().get(participantIndex).getStats().getKills()),
 					Integer.parseInt(matchDto.getParticipants().get(participantIndex).getStats().getAssists()), 
 					matchDto.getParticipants().get(participantIndex).getTeamId().equals("100")? TotalKills100:TotalKills200);
 			gameObject.addProperty("participation", participation);
@@ -83,7 +83,8 @@ public class FrontMatchListService {
 		return jsonObject;
 	}
 	
-	public int calcParticipation(int kills, int assists, int totalKills) {
+	public float calcParticipation(float kills, float assists, float totalKills) {
+		if (totalKills == 0) return 0;
 		return (kills + assists) / totalKills * 100;
 	}
 

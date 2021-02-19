@@ -63,7 +63,7 @@ public class MainController {
 		accountId = NameService.test(name, apiKey, dbService);
 		
 		FrontMatchListService frontMatchListService = new FrontMatchListService();
-		jsonObject = frontMatchListService.GetMatchList(accountId, 0, 5, apiKey, matchDbService);
+		jsonObject = frontMatchListService.GetMatchList(accountId, 0, 15, apiKey, matchDbService);
 		System.out.println(gson.toJson(jsonObject).toString());
 		return ResponseEntity.ok(gson.toJson(jsonObject));
 	}	
