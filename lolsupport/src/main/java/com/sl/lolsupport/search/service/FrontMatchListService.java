@@ -31,6 +31,7 @@ public class FrontMatchListService {
 			JsonArray teamChampionIdList = new JsonArray();
 			JsonObject teamChampionId100 = new JsonObject();
 			JsonObject teamChampionId200 = new JsonObject();
+			gameObject.addProperty("gameId", matchDto.getGameId());
 			gameObject.addProperty("gameMode", matchDto.getGameMode());
 			gameObject.addProperty("gameDuration", matchDto.getGameDuration());
 			gameObject.addProperty("gameCreation", matchDto.getGameCreation());
