@@ -71,7 +71,7 @@ public class FrontAddListService {
 					Integer.parseInt(matchDto.getParticipants().get(i).getStats().getAssists()), 
 					matchDto.getParticipants().get(i).getTeamId().equals("100")? TotalKills100:TotalKills200);
 			
-			gameObject2.addProperty("participation", participation);
+			gameObject2.addProperty("participation"+i, participation);
 			infoList.add(gameObject2);
 		}
 		

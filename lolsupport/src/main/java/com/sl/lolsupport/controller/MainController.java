@@ -1,40 +1,32 @@
 package com.sl.lolsupport.controller;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.http.converter.FormHttpMessageConverter;
-import org.springframework.http.converter.HttpMessageConverter;
-import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.client.RestTemplate;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.sl.lolsupport.search.dto.MatchDto;
 import com.sl.lolsupport.search.dto.MatchlistDto;
-import com.sl.lolsupport.search.dto.SummonerDto;
 import com.sl.lolsupport.search.service.FrontAddListService;
 import com.sl.lolsupport.search.service.FrontMatchListService;
 import com.sl.lolsupport.search.service.GetMatchListService;
 import com.sl.lolsupport.search.service.GetMatchService;
-import com.sl.lolsupport.search.service.GetSummonerNameAPI;
 import com.sl.lolsupport.search.service.GetSummonerNameService;
+import com.sl.lolsupport.service.RiotDataService;
 import com.sl.lolsupport.service.DbService;
 import com.sl.lolsupport.service.MatchDbService;
 
 @Controller
 public class MainController {
 	// Git 연동 시 apiKey 삭제
-	final static String apiKey = "RGAPI-11114b3d-a053-4f24-a377-ebfd8e1405f5";
+	final static String apiKey = "XXXXXX";
 
 	@Autowired(required = true)
 	@Resource(name = "dbService")
@@ -56,7 +48,7 @@ public class MainController {
 		return ResponseEntity.ok(gson.toJson(jsonObject));
 	}
 	
-	@CrossOrigin(origins = "http://localhost:3000")
+	@CrossOrigin(origins = "*")
 	@RequestMapping(value = "/search")
 	public ResponseEntity<String> search(HttpServletRequest request) {
 		MatchDto matchDto = new MatchDto();
@@ -71,7 +63,7 @@ public class MainController {
 		accountId = NameService.test(name, apiKey, dbService);
 		
 		FrontMatchListService frontMatchListService = new FrontMatchListService();
-		jsonObject = frontMatchListService.GetMatchList(accountId, 0, 15, apiKey, matchDbService);
+		jsonObject = frontMatchListService.GetMatchList(accountId, 0, 20, apiKey, dbService, matchDbService);
 		System.out.println(gson.toJson(jsonObject).toString());
 		return ResponseEntity.ok(gson.toJson(jsonObject));
 	}
@@ -100,6 +92,14 @@ public class MainController {
 	public String valueTest() {
 		String value = "Test String!";
 		return value;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/champUpdate")
+	public String champUpdate() {
+		RiotDataService cs = new RiotDataService();
+		//cs.ChampionInformationUpdate();
+		return cs.ChampionIdToName("1",dbService);
 	}
 
 	@ResponseBody

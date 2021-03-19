@@ -6,7 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.sl.lolsupport.mapper.DbMapper;
-import com.sl.lolsupport.search.dto.SummonerDto;;
+import com.sl.lolsupport.search.dto.SummonerDto;
+import com.sl.lolsupport.service.dto.ChampionData;
+import com.sl.lolsupport.service.dto.QueueTypeData;
+import com.sl.lolsupport.service.dto.SpellData;;
 
 @Service
 public class DbService implements DbMapper{
@@ -31,5 +34,17 @@ public class DbService implements DbMapper{
 		} else {
 			return dbmapper.searchSummoner(name);
 		}
+	}
+	
+	public ChampionData searchChampion(String key) throws Exception{
+		return dbmapper.searchChampion(key);
+	}
+	
+	public SpellData searchSpell(String key) throws Exception{
+		return dbmapper.searchSpell(key);
+	}
+	
+	public QueueTypeData searchQueueType(String id) throws Exception{
+		return dbmapper.searchQueueType(id);
 	}
 }

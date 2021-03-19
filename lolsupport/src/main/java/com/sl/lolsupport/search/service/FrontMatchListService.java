@@ -5,6 +5,8 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.sl.lolsupport.search.dto.MatchDto;
 import com.sl.lolsupport.search.dto.MatchlistDto;
+import com.sl.lolsupport.service.RiotDataService;
+import com.sl.lolsupport.service.DbService;
 import com.sl.lolsupport.service.MatchDbService;
 
 public class FrontMatchListService {
@@ -12,9 +14,11 @@ public class FrontMatchListService {
 	/*
 	 * 승/패 게임모드 KDA 킬관여 스펠 팀챔피언목록 아이템 레벨/골드/CS 플레이한시간 와드
 	 */
-	public JsonObject GetMatchList(String accountID, int beginIndex, int endIndex, String apiKey, MatchDbService matchDbService) {
+	public JsonObject GetMatchList(String accountID, int beginIndex, int endIndex, String apiKey, DbService dbService, MatchDbService matchDbService) {
 		GetMatchListService matchListService = new GetMatchListService();
 		GetMatchService matchService = new GetMatchService();
+		RiotDataService rds = new RiotDataService();
+		
 		MatchlistDto matchlistDto = new MatchlistDto();
 		matchlistDto = matchListService.getMatchList(accountID, beginIndex, endIndex, apiKey);
 		JsonObject jsonObject = new JsonObject();
@@ -31,20 +35,20 @@ public class FrontMatchListService {
 			JsonArray teamChampionIdList = new JsonArray();
 			JsonObject teamChampionId100 = new JsonObject();
 			JsonObject teamChampionId200 = new JsonObject();
-			gameObject.addProperty("gameId", matchDto.getGameId());
-			gameObject.addProperty("gameMode", matchDto.getGameMode());
+			gameObject.addProperty("gameQueueType", rds.getQueueTypeName(matchDto.getQueueId(), dbService));
 			gameObject.addProperty("gameDuration", matchDto.getGameDuration());
 			gameObject.addProperty("gameCreation", matchDto.getGameCreation());
+
 			for (int j=0; j<matchDto.getParticipantIdentities().size(); j++) {
 				if (accountID.equals(matchDto.getParticipantIdentities().get(j).getPlayer().getAccountId())){
 					participantIndex = j;
 					gameObject.addProperty("participantIndex", participantIndex);
-					gameObject.addProperty("win", matchDto.getParticipants().get(participantIndex).getStats().getWin());
+					gameObject.addProperty("win", matchDto.getParticipants().get(participantIndex).getStats().getWin().equals("true") ? "승" : "패");
 					gameObject.addProperty("kills", matchDto.getParticipants().get(participantIndex).getStats().getKills());
 					gameObject.addProperty("deaths", matchDto.getParticipants().get(participantIndex).getStats().getDeaths());
 					gameObject.addProperty("assists", matchDto.getParticipants().get(participantIndex).getStats().getAssists());
-					gameObject.addProperty("spell1Id", matchDto.getParticipants().get(participantIndex).getSpell1Id());
-					gameObject.addProperty("spell2Id", matchDto.getParticipants().get(participantIndex).getSpell2Id());
+					gameObject.addProperty("spell1Id", rds.getSummonerSpellImgURL(matchDto.getParticipants().get(participantIndex).getSpell1Id(), dbService));
+					gameObject.addProperty("spell2Id", rds.getSummonerSpellImgURL(matchDto.getParticipants().get(participantIndex).getSpell2Id(), dbService));
 					gameObject.addProperty("perk0", matchDto.getParticipants().get(participantIndex).getStats().getPerk0());
 					gameObject.addProperty("perkSubStyle", matchDto.getParticipants().get(participantIndex).getStats().getPerkSubStyle());
 					gameObject.addProperty("item0", matchDto.getParticipants().get(participantIndex).getStats().getItem0());
@@ -59,7 +63,7 @@ public class FrontMatchListService {
 					gameObject.addProperty("totalMinionsKilled", matchDto.getParticipants().get(participantIndex).getStats().getTotalMinionsKilled());
 					gameObject.addProperty("wardsPlaced", matchDto.getParticipants().get(participantIndex).getStats().getWardsPlaced());
 					gameObject.addProperty("visionWardsBoughtInGame", matchDto.getParticipants().get(participantIndex).getStats().getVisionWardsBoughtInGame());
-					gameObject.addProperty("wardsKilled", matchDto.getParticipants().get(participantIndex).getStats().getWardsKilled());					
+					gameObject.addProperty("wardsKilled", matchDto.getParticipants().get(participantIndex).getStats().getWardsKilled());
 				}
 				if (matchDto.getParticipants().get(j).getTeamId().equals("100")) {
 					TotalKills100 += Integer.parseInt(matchDto.getParticipants().get(j).getStats().getKills());
@@ -78,15 +82,29 @@ public class FrontMatchListService {
 			teamChampionIdList.add(teamChampionId100);
 			teamChampionIdList.add(teamChampionId200);
 			gameObject.add("teamChampionId", teamChampionIdList);
+			
+			// 자신의 챔피언 아이디
+			String myChampion = "";
+			if (participantIndex < 5) {
+				myChampion = teamChampionId100.get(participantIndex+"").getAsString();
+			}else {
+				myChampion = teamChampionId200.get(participantIndex+"").getAsString();
+			}
+			
+			
+			myChampion = rds.ChampionIdToName(myChampion, dbService);
+			String ChampionImgURL = rds.getChampionImgURL(myChampion);
+			gameObject.addProperty("myChampion", ChampionImgURL);
+			
 			gameList.add(gameObject);
 		}
 		jsonObject.add("games", gameList);
 		return jsonObject;
 	}
 	
-	public float calcParticipation(float kills, float assists, float totalKills) {
+	public int calcParticipation(float kills, float assists, float totalKills) {
 		if (totalKills == 0) return 0;
-		return (kills + assists) / totalKills * 100;
+		return (int) ((kills + assists) / totalKills * 100);
 	}
 
 }

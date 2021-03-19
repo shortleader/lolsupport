@@ -32,6 +32,17 @@
     	SELECT * FROM summoner_data WHERE name = #{name}
     </select>
     
+    <select id="searchChampion" resultType="com.sl.lolsupport.service.dto.ChampionData">
+    	SELECT * FROM champion WHERE champion_key = #{key}
+    </select>
+    
+    <select id="searchSpell" resultType="com.sl.lolsupport.service.dto.SpellData">
+    	SELECT * FROM summoner_spells WHERE spell_key = #{key}
+    </select>
+    
+    <select id="searchQueueType" resultType="com.sl.lolsupport.service.dto.QueueTypeData">
+    	SELECT * FROM queuetype WHERE queue_id = #{id}
+    </select>    
   
 </mapper>
  
