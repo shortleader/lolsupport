@@ -6,6 +6,7 @@ import com.google.gson.JsonObject;
 import com.sl.lolsupport.search.dto.MatchDto;
 import com.sl.lolsupport.search.dto.MatchlistDto;
 import com.sl.lolsupport.service.RiotDataService;
+import com.sl.lolsupport.util.TimeUtil;
 import com.sl.lolsupport.service.DbService;
 import com.sl.lolsupport.service.MatchDbService;
 
@@ -18,6 +19,7 @@ public class FrontMatchListService {
 		GetMatchListService matchListService = new GetMatchListService();
 		GetMatchService matchService = new GetMatchService();
 		RiotDataService rds = new RiotDataService();
+		TimeUtil tUtil = new TimeUtil();
 		
 		MatchlistDto matchlistDto = new MatchlistDto();
 		matchlistDto = matchListService.getMatchList(accountID, beginIndex, endIndex, apiKey);
@@ -33,11 +35,11 @@ public class FrontMatchListService {
 			int TotalKills100 = 0;
 			int TotalKills200 = 0;
 			JsonArray teamChampionIdList = new JsonArray();
-			JsonObject teamChampionId100 = new JsonObject();
-			JsonObject teamChampionId200 = new JsonObject();
+			JsonArray teamChampionId100 = new JsonArray();
+			JsonArray teamChampionId200 = new JsonArray();
 			gameObject.addProperty("gameQueueType", rds.getQueueTypeName(matchDto.getQueueId(), dbService));
-			gameObject.addProperty("gameDuration", matchDto.getGameDuration());
-			gameObject.addProperty("gameCreation", matchDto.getGameCreation());
+			gameObject.addProperty("gameDuration", Integer.parseInt(matchDto.getGameDuration())/60+"분" );
+			gameObject.addProperty("gameCreation", tUtil.UnixToUTC(matchDto.getGameCreation()));
 
 			for (int j=0; j<matchDto.getParticipantIdentities().size(); j++) {
 				if (accountID.equals(matchDto.getParticipantIdentities().get(j).getPlayer().getAccountId())){
@@ -51,26 +53,29 @@ public class FrontMatchListService {
 					gameObject.addProperty("spell2Id", rds.getSummonerSpellImgURL(matchDto.getParticipants().get(participantIndex).getSpell2Id(), dbService));
 					gameObject.addProperty("perk0", matchDto.getParticipants().get(participantIndex).getStats().getPerk0());
 					gameObject.addProperty("perkSubStyle", matchDto.getParticipants().get(participantIndex).getStats().getPerkSubStyle());
-					gameObject.addProperty("item0", matchDto.getParticipants().get(participantIndex).getStats().getItem0());
-					gameObject.addProperty("item1", matchDto.getParticipants().get(participantIndex).getStats().getItem1());
-					gameObject.addProperty("item2", matchDto.getParticipants().get(participantIndex).getStats().getItem2());
-					gameObject.addProperty("item3", matchDto.getParticipants().get(participantIndex).getStats().getItem3());
-					gameObject.addProperty("item4", matchDto.getParticipants().get(participantIndex).getStats().getItem4());
-					gameObject.addProperty("item5", matchDto.getParticipants().get(participantIndex).getStats().getItem5());
-					gameObject.addProperty("item6", matchDto.getParticipants().get(participantIndex).getStats().getItem6());
+					gameObject.addProperty("item0", rds.getItemImgURL(matchDto.getParticipants().get(participantIndex).getStats().getItem0(), dbService));
+					gameObject.addProperty("item1", rds.getItemImgURL(matchDto.getParticipants().get(participantIndex).getStats().getItem1(), dbService));
+					gameObject.addProperty("item2", rds.getItemImgURL(matchDto.getParticipants().get(participantIndex).getStats().getItem2(), dbService));
+					gameObject.addProperty("item3", rds.getItemImgURL(matchDto.getParticipants().get(participantIndex).getStats().getItem3(), dbService));
+					gameObject.addProperty("item4", rds.getItemImgURL(matchDto.getParticipants().get(participantIndex).getStats().getItem4(), dbService));
+					gameObject.addProperty("item5", rds.getItemImgURL(matchDto.getParticipants().get(participantIndex).getStats().getItem5(), dbService));
+					gameObject.addProperty("item6", rds.getItemImgURL(matchDto.getParticipants().get(participantIndex).getStats().getItem6(), dbService));
 					gameObject.addProperty("championLevel", matchDto.getParticipants().get(participantIndex).getStats().getChampLevel());
 					gameObject.addProperty("goldEarned", matchDto.getParticipants().get(participantIndex).getStats().getGoldEarned());
 					gameObject.addProperty("totalMinionsKilled", matchDto.getParticipants().get(participantIndex).getStats().getTotalMinionsKilled());
 					gameObject.addProperty("wardsPlaced", matchDto.getParticipants().get(participantIndex).getStats().getWardsPlaced());
 					gameObject.addProperty("visionWardsBoughtInGame", matchDto.getParticipants().get(participantIndex).getStats().getVisionWardsBoughtInGame());
 					gameObject.addProperty("wardsKilled", matchDto.getParticipants().get(participantIndex).getStats().getWardsKilled());
+					
 				}
 				if (matchDto.getParticipants().get(j).getTeamId().equals("100")) {
 					TotalKills100 += Integer.parseInt(matchDto.getParticipants().get(j).getStats().getKills());
-					teamChampionId100.addProperty(String.valueOf(j), matchDto.getParticipants().get(j).getChampionId());
+					//teamChampionId100.addProperty(String.valueOf(j), matchDto.getParticipants().get(j).getChampionId());
+					teamChampionId100.add(rds.getChampionImgURL(matchDto.getParticipants().get(j).getChampionId(),dbService));
 				}else {
 					TotalKills200 += Integer.parseInt(matchDto.getParticipants().get(j).getStats().getKills());
-					teamChampionId200.addProperty(String.valueOf(j), matchDto.getParticipants().get(j).getChampionId());
+					//teamChampionId200.addProperty(String.valueOf(j), matchDto.getParticipants().get(j).getChampionId());
+					teamChampionId200.add(rds.getChampionImgURL(matchDto.getParticipants().get(j).getChampionId(),dbService));
 				}
 			}
 			// 킬관여율
@@ -86,15 +91,11 @@ public class FrontMatchListService {
 			// 자신의 챔피언 아이디
 			String myChampion = "";
 			if (participantIndex < 5) {
-				myChampion = teamChampionId100.get(participantIndex+"").getAsString();
+				myChampion = teamChampionId100.get(participantIndex).getAsString();
 			}else {
-				myChampion = teamChampionId200.get(participantIndex+"").getAsString();
+				myChampion = teamChampionId200.get(participantIndex-5).getAsString();
 			}
-			
-			
-			myChampion = rds.ChampionIdToName(myChampion, dbService);
-			String ChampionImgURL = rds.getChampionImgURL(myChampion);
-			gameObject.addProperty("myChampion", ChampionImgURL);
+			gameObject.addProperty("myChampion", myChampion);
 			
 			gameList.add(gameObject);
 		}

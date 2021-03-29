@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.sl.lolsupport.mapper.DbMapper;
 import com.sl.lolsupport.search.dto.SummonerDto;
 import com.sl.lolsupport.service.dto.ChampionData;
+import com.sl.lolsupport.service.dto.ItemData;
 import com.sl.lolsupport.service.dto.QueueTypeData;
 import com.sl.lolsupport.service.dto.SpellData;;
 
@@ -46,5 +47,9 @@ public class DbService implements DbMapper{
 	
 	public QueueTypeData searchQueueType(String id) throws Exception{
 		return dbmapper.searchQueueType(id);
+	}
+	
+	public ItemData searchItem(String key) throws Exception{
+		return dbmapper.searchItem(key);
 	}
 }

@@ -42,7 +42,11 @@
     
     <select id="searchQueueType" resultType="com.sl.lolsupport.service.dto.QueueTypeData">
     	SELECT * FROM queuetype WHERE queue_id = #{id}
-    </select>    
+    </select>
+	
+	<select id="searchItem" resultType="com.sl.lolsupport.service.dto.ItemData">
+		SELECT * FROM items WHERE item_key = #{key}
+	</select>
   
 </mapper>
  

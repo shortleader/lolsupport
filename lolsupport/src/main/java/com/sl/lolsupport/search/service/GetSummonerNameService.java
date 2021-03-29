@@ -20,7 +20,7 @@ public class GetSummonerNameService {
 	public String test(String summonerName, String apiKey, DbService dbService) {
 		SummonerDto summonerData = new SummonerDto();		
 		String summonerAccountId = "";
-		
+		summonerName = summonerName.replaceAll(" ","");
 		BufferedReader in = null;
 		
 		try {
@@ -36,8 +36,6 @@ public class GetSummonerNameService {
 				//값이 있을경우 list안에서 값을 꺼내와서 쓰면댐.
 				
 			} else {
-				
-				summonerName = summonerName.replaceAll(" ","");
 				
 				URL obj = new URL("https://kr.api.riotgames.com/lol/summoner/v4/summoners/by-name/"+summonerName+"?api_key="+apiKey);//호출할 url
 				HttpURLConnection con = (HttpURLConnection)obj.openConnection();
@@ -59,7 +57,7 @@ public class GetSummonerNameService {
 				SummonerDto data2 = new SummonerDto();
 				
 				
-				String name = summoner.get("name").getAsString();
+				String name = summoner.get("name").getAsString().replaceAll(" ", "");
 				String accountId = summoner.get("accountId").getAsString();
 				String puuid = summoner.get("puuid").getAsString();
 				String id = summoner.get("id").getAsString();
@@ -81,7 +79,6 @@ public class GetSummonerNameService {
 				
 				
 			}
-			
 			//in.close();
 			
 		} catch(Exception e) {

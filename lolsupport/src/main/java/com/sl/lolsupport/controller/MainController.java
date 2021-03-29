@@ -26,7 +26,7 @@ import com.sl.lolsupport.service.MatchDbService;
 @Controller
 public class MainController {
 	// Git 연동 시 apiKey 삭제
-	final static String apiKey = "XXXXXX";
+	final static String apiKey = "XXXX";
 
 	@Autowired(required = true)
 	@Resource(name = "dbService")
