@@ -17,9 +17,8 @@ import com.sl.lolsupport.service.DbService;
 public class GetSummonerNameService {
 
 	
-	public String test(String summonerName, String apiKey, DbService dbService) {
+	public SummonerDto test(String summonerName, String apiKey, DbService dbService) {
 		SummonerDto summonerData = new SummonerDto();		
-		String summonerAccountId = "";
 		summonerName = summonerName.replaceAll(" ","");
 		BufferedReader in = null;
 		
@@ -32,8 +31,6 @@ public class GetSummonerNameService {
 					summonerData.setId(list.get(i).getId());
 					summonerData.setAccountId(list.get(i).getAccountId());
 				}
-				summonerAccountId = summonerData.getAccountId();
-				//값이 있을경우 list안에서 값을 꺼내와서 쓰면댐.
 				
 			} else {
 				
@@ -65,8 +62,6 @@ public class GetSummonerNameService {
 				String revisionDate = summoner.get("revisionDate").getAsString();
 				String summonerLevel = summoner.get("summonerLevel").getAsString();
 				
-				summonerAccountId = summoner.get("accountId").getAsString();
-				
 				data2.setName(name);
 				data2.setId(id);
 				data2.setAccountId(accountId);
@@ -76,14 +71,14 @@ public class GetSummonerNameService {
 				data2.setSummonerLevel(summonerLevel);
 				
 				dbService.insertSummoner(data2);
-				
+				summonerData = data2;
 				
 			}
 			//in.close();
 			
 		} catch(Exception e) {
 			e.printStackTrace();
-			summonerAccountId = null;
+			summonerData = null;
 		} finally {
 			if(in != null) 
 				try {
@@ -92,6 +87,6 @@ public class GetSummonerNameService {
 					e.printStackTrace();
 				}
 		}
-		return summonerAccountId;
+		return summonerData;
 	}
 }

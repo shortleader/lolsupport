@@ -3,6 +3,7 @@ package com.sl.lolsupport.search.service;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import com.sl.lolsupport.search.dto.LeagueEntryDto;
 import com.sl.lolsupport.search.dto.MatchDto;
 import com.sl.lolsupport.search.dto.MatchlistDto;
 import com.sl.lolsupport.service.RiotDataService;

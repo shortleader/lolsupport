@@ -12,10 +12,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import com.sl.lolsupport.search.dto.LeagueEntryDto;
 import com.sl.lolsupport.search.dto.MatchDto;
 import com.sl.lolsupport.search.dto.MatchlistDto;
+import com.sl.lolsupport.search.dto.SummonerDto;
 import com.sl.lolsupport.search.service.FrontAddListService;
 import com.sl.lolsupport.search.service.FrontMatchListService;
+import com.sl.lolsupport.search.service.FrontTierCheckService;
+import com.sl.lolsupport.search.service.FrontTierService;
 import com.sl.lolsupport.search.service.GetMatchListService;
 import com.sl.lolsupport.search.service.GetMatchService;
 import com.sl.lolsupport.search.service.GetSummonerNameService;
@@ -26,7 +30,7 @@ import com.sl.lolsupport.service.MatchDbService;
 @Controller
 public class MainController {
 	// Git 연동 시 apiKey 삭제
-	final static String apiKey = "XXXX";
+	final static String apiKey = "XXXXXXXX";
 
 	@Autowired(required = true)
 	@Resource(name = "dbService")
@@ -35,50 +39,37 @@ public class MainController {
 	@Autowired(required = true)
 	@Resource(name = "matchDbService")
 	MatchDbService matchDbService = new MatchDbService();
-
-	@CrossOrigin(origins = "http://localhost:3000")
-	@RequestMapping(value = "/ip")
-	public ResponseEntity<String> restTest(HttpServletRequest request) {
-		MatchDto matchDto = new MatchDto();
-		Gson gson = new Gson();
-		JsonObject jsonObject = new JsonObject();
-		FrontMatchListService frontMatchListService = new FrontMatchListService();
-		jsonObject = frontMatchListService.GetMatchList("IsyhcVFfJWRQgqRzTtsu5-a7sIYh6IjxGrwWeiEjvk-2", 0, 5, apiKey, matchDbService);
-		System.out.println(gson.toJson(jsonObject).toString());
-		return ResponseEntity.ok(gson.toJson(jsonObject));
-	}
 	
 	@CrossOrigin(origins = "*")
 	@RequestMapping(value = "/search")
 	public ResponseEntity<String> search(HttpServletRequest request) {
 		MatchDto matchDto = new MatchDto();
+		SummonerDto summonerDto = new SummonerDto();
 		Gson gson = new Gson();
-		JsonObject jsonObject = new JsonObject();
+		JsonObject jsonObject = new JsonObject();	// matchList
+		JsonObject jsonObject2 = new JsonObject();	// tier check
 		GetSummonerNameService NameService = new GetSummonerNameService();
 		String name = "";
 		
 		name = request.getParameter("summonerName"); 
 		
 		String accountId = "";
-		accountId = NameService.test(name, apiKey, dbService);
-		
+		summonerDto = NameService.test(name, apiKey, dbService); 
+		accountId = summonerDto.getAccountId();
+		FrontTierCheckService frontTierCheckService = new FrontTierCheckService();
 		FrontMatchListService frontMatchListService = new FrontMatchListService();
 		jsonObject = frontMatchListService.GetMatchList(accountId, 0, 20, apiKey, dbService, matchDbService);
+		LeagueEntryDto[] leagueEntryDto = frontTierCheckService.TierCheck(summonerDto.getId(), apiKey);
+		// TODO 자유랭크 전적 있으면 0에 들어가고 없으면 솔로랭크 수정 필요함
+		jsonObject2.addProperty("league", leagueEntryDto[0].getQueueType());
+		jsonObject2.addProperty("tier", leagueEntryDto[0].getTier());
+		jsonObject2.addProperty("rank", leagueEntryDto[0].getRank());
+		jsonObject2.addProperty("leaguePoints", leagueEntryDto[0].getLeaguePoints());
+		jsonObject2.addProperty("totalWin", leagueEntryDto[0].getWins());
+		jsonObject2.addProperty("totalLose", leagueEntryDto[0].getLosses());
+		
+		jsonObject.add("tier", jsonObject2);
 		System.out.println(gson.toJson(jsonObject).toString());
-		return ResponseEntity.ok(gson.toJson(jsonObject));
-	}
-	
-	@CrossOrigin(origins = "http://localhost:3000")
-	@RequestMapping(value = "/fff")
-	public ResponseEntity<String> addList(HttpServletRequest request) {
-		Gson gson = new Gson();
-		JsonObject jsonObject = new JsonObject();
-		FrontAddListService frontAddListService = new FrontAddListService();
-		
-		String gameId = "5025468350";
-		
-		jsonObject = frontAddListService.AddMatchList(gameId, apiKey, matchDbService);
-		
 		return ResponseEntity.ok(gson.toJson(jsonObject));
 	}
 

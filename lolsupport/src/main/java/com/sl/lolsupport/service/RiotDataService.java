@@ -33,16 +33,12 @@ public class RiotDataService {
 	public String getItemImgURL(String key, DbService dbService) {
 		String url = "";
 		String name = "";
-		
-		if (key.equals("0")) {
-			url = "img/ccc.png";
-		}else {
-			try {
-				name = dbService.searchItem(key).getItem_name();
-			}catch(Exception e) {
-				e.printStackTrace();
-			}
+		try {
+			name = dbService.searchItem(key).getItem_name();
 			url = cdnURL + "item/" + key + ".png";
+		}catch(Exception e) {
+			url = "img/ccc.png";
+			//e.printStackTrace();
 		}
 		return url;
 	}
