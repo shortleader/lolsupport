@@ -61,13 +61,23 @@ public class MainController {
 		jsonObject = frontMatchListService.GetMatchList(accountId, 0, 20, apiKey, dbService, matchDbService);
 		LeagueEntryDto[] leagueEntryDto = frontTierCheckService.TierCheck(summonerDto.getId(), apiKey);
 		// TODO 자유랭크 전적 있으면 0에 들어가고 없으면 솔로랭크 수정 필요함
-		jsonObject2.addProperty("league", leagueEntryDto[0].getQueueType());
-		jsonObject2.addProperty("tier", leagueEntryDto[0].getTier());
-		jsonObject2.addProperty("rank", leagueEntryDto[0].getRank());
-		jsonObject2.addProperty("leaguePoints", leagueEntryDto[0].getLeaguePoints());
-		jsonObject2.addProperty("totalWin", leagueEntryDto[0].getWins());
-		jsonObject2.addProperty("totalLose", leagueEntryDto[0].getLosses());
-		
+		if (leagueEntryDto.length > 0) {
+			for (int i=0; i<leagueEntryDto.length; i++) {
+				String PreFix = "";
+				if (leagueEntryDto[i].getQueueType().equals("RANKED_SOLO_5x5")) {
+					PreFix = "S";
+				}else {
+					PreFix = "F";
+				}
+				jsonObject2.addProperty(PreFix + "league", leagueEntryDto[i].getQueueType());
+				jsonObject2.addProperty(PreFix + "tier", leagueEntryDto[i].getTier());
+				jsonObject2.addProperty(PreFix + "rank", leagueEntryDto[i].getRank());
+				jsonObject2.addProperty(PreFix + "leaguePoints", leagueEntryDto[i].getLeaguePoints());
+				jsonObject2.addProperty(PreFix + "totalWin", leagueEntryDto[i].getWins());
+				jsonObject2.addProperty(PreFix + "totalLose", leagueEntryDto[i].getLosses());
+				jsonObject2.addProperty(PreFix + "tierImage", GetRankImage(leagueEntryDto[i].getTier()));
+			}
+		}
 		jsonObject.add("tier", jsonObject2);
 		System.out.println(gson.toJson(jsonObject).toString());
 		return ResponseEntity.ok(gson.toJson(jsonObject));
@@ -93,6 +103,46 @@ public class MainController {
 		return cs.ChampionIdToName("1",dbService);
 	}
 
+	public String GetRankImage(String tier) {
+		String image = "";
+		switch(tier) {
+			case "IRON":
+				image = "/img/Emblem_Iron.png";
+				break;
+			case "BRONZE":
+				image = "/img/Emblem_Bronze.png";
+				break;
+			case "SILVER":
+				image = "/img/Emblem_Silver.png";
+				break;
+			case "GOLD":
+				image = "/img/Emblem_Gold.png";
+				break;
+			case "PLATINUM":
+				image = "/img/Emblem_Platinum.png";
+				break;
+			case "DIAMOND":
+				image = "/img/Emblem_Diamond.png";
+				break;
+			case "MASTER":
+				image = "/img/Emblem_Master.png";
+				break;
+			case "GRANDMASTER":
+				image = "/img/Emblem_Grandmaster.png";
+				break;
+			case "CHALLENGER":
+				image = "/img/Emblem_Challenger.png";
+			break;
+			default:
+				image = "/img/Emblem_Unrank.png";
+			break;
+		}
+		return image;
+	}
+	
+	
+	
+	
 	@ResponseBody
 	@RequestMapping(value = "/APITest")
 	public String apiTest() throws Exception {
